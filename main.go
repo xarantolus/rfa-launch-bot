@@ -33,8 +33,11 @@ func main() {
 	}
 	log.Printf("[Twitter] Logged in @%s\n", user.ScreenName)
 
-	// Load all ignored users
-	var ignoredUsers = bot.ListMembers(client, cfg.Lists.NegativeIDs...)
+	// Load all ignored & known users
+	var (
+		knownUsers   = bot.ListMembers(client, cfg.Lists.PositiveIDs...)
+		ignoredUsers = bot.ListMembers(client, cfg.Lists.NegativeIDs...)
+	)
 
 	var matcher = matcher.NewMatcher(ignoredUsers)
 
@@ -78,6 +81,17 @@ func main() {
 			return
 		}
 		log.Println("[Twitter] Retweeted", t.URL())
+
+		// Add users we don't know yet to a "staging" list. That way, I can add them to the positive list
+		if t.User != nil && !knownUsers.ContainsByID(t.User.ID) {
+			_, err = client.Lists.MembersCreate(&twitter.ListsMembersCreateParams{
+				ListID: cfg.Lists.Staging,
+				UserID: t.User.ID,
+			})
+			if err != nil {
+				log.Printf("adding user to list: %s\n", err.Error())
+			}
+		}
 	}
 
 	for tweet := range tweetChan {

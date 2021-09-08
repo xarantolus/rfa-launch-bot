@@ -17,6 +17,8 @@ type Config struct {
 	Lists struct {
 		PositiveIDs []int64 `yaml:"positive"`
 		NegativeIDs []int64 `yaml:"negative"`
+
+		Staging int64 `yaml:"staging"`
 	} `yaml:"lists"`
 }
 
