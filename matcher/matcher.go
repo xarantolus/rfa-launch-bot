@@ -52,6 +52,8 @@ func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
 			"gigapress", "gigafactory", "openai", "boring", "hyperloop", "solarcity", "neuralink", "sls", "nasa_sls", "ula", "vulcan", "artemis", "rogozin", "virgingalactic", "virgin galactic", "virgin orbit", "virginorbit", "blueorigin", "boeing", "starliner", "soyuz", "orion",
 
 			"covid", "corona", "pandemie", "pandemic", "impfung", "vaccine", "vax",
+
+			"jesus", "god", "gott", "der herr",
 		},
 	}
 
