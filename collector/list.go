@@ -8,7 +8,7 @@ import (
 
 // List requests tweets from the twitter list with the given ID every 1-2 minutes
 func List(list twitter.List, client *twitter.Client, tweetChan chan<- TweetWrapper) {
-	listName := fmt.Sprintf("list (%s, id=%d)", list.FullName, list.ID)
+	listName := fmt.Sprintf("list (%s, name=%s)", list.FullName, list.Name)
 	defer panic(listName + " follower stopped processing even though it shouldn't")
 
 	var listTimelineFunc = func(c *twitter.Client, lastTweetID int64) ([]twitter.Tweet, error) {

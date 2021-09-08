@@ -13,6 +13,11 @@ type Config struct {
 		APIKey            string `yaml:"api_key"`
 		APISecretKey      string `yaml:"api_secret"`
 	} `yaml:"twitter"`
+
+	Lists struct {
+		PositiveIDs []int64 `yaml:"positive"`
+		NegativeIDs []int64 `yaml:"negative"`
+	} `yaml:"lists"`
 }
 
 func Parse(filename string) (c Config, err error) {
