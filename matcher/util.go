@@ -6,6 +6,8 @@ import (
 	"unicode"
 )
 
+// anyWordStartsWith returns whether any word in text starts with any word in words.
+// It skips hashtags and a bunch of other stuff to make it useful for text on twitter
 func anyWordStartsWith(text string, words ...string) bool {
 	var iterations = 0
 
