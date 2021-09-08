@@ -35,8 +35,9 @@ func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
 
 		positiveKeywords: []string{
 			"rocket factory augsburg",
-			"rfa one",
+			"rocketfactoryaugsburg",
 
+			"rfa one",
 			"rocket factory one",
 		},
 

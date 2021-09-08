@@ -18,6 +18,9 @@ func SearchStream(client *twitter.Client, tweetChan chan<- TweetWrapper) {
 			Track: []string{
 				"rocket factory augsburg",
 				"rocketfactoryaugsburg",
+
+				"rfa one",
+				"rocket factory one",
 			},
 			FilterLevel: "none",
 		})
