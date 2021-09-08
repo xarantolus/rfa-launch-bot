@@ -22,5 +22,5 @@ func Timeline(client *twitter.Client, tweetChan chan<- TweetWrapper) {
 		return t, err
 	}
 
-	pollingCollector("home timeline", client, tweetChan, homeTimelineFunc)
+	pollingCollector("home timeline", TweetSourceTimeline, client, tweetChan, homeTimelineFunc)
 }

@@ -14,7 +14,7 @@ type tweetFunc func(c *twitter.Client, lastTweetID int64) ([]twitter.Tweet, erro
 
 // pollingCollectors unifies all functionality of collectors that need to poll something on twitter.
 // That way the logic isn't duplicated
-func pollingCollector(name string, client *twitter.Client, tweetChan chan<- TweetWrapper, tweetFunc tweetFunc) {
+func pollingCollector(name string, source TweetSource, client *twitter.Client, tweetChan chan<- TweetWrapper, tweetFunc tweetFunc) {
 
 	var (
 		// lastSeenID is the ID of the last tweet we saw
@@ -49,7 +49,7 @@ func pollingCollector(name string, client *twitter.Client, tweetChan chan<- Twee
 			}
 
 			tweetChan <- TweetWrapper{
-				Source: TweetSourceTimeline,
+				Source: source,
 				Tweet:  tweet,
 			}
 		}

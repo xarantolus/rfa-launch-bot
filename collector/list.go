@@ -23,5 +23,5 @@ func List(list twitter.List, client *twitter.Client, tweetChan chan<- TweetWrapp
 		return t, err
 	}
 
-	pollingCollector(listName, client, tweetChan, listTimelineFunc)
+	pollingCollector(listName, TweetSourceList, client, tweetChan, listTimelineFunc)
 }

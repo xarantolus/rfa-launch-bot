@@ -22,5 +22,5 @@ func User(username string, client *twitter.Client, tweetChan chan<- TweetWrapper
 		return t, err
 	}
 
-	pollingCollector(userName, client, tweetChan, userTimelineFunc)
+	pollingCollector(userName, TweetSourceUser, client, tweetChan, userTimelineFunc)
 }
