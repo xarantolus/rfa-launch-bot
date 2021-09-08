@@ -46,6 +46,10 @@ func main() {
 		// Timeline
 		go collector.Timeline(client, tweetChan)
 
+		// Important users (Company/Investor accounts)
+		go collector.User("rfa_space", client, tweetChan)
+		go collector.User("OHB_SE", client, tweetChan)
+
 		// All positive lists
 		for _, listID := range cfg.Lists.PositiveIDs {
 			list, _, err := client.Lists.Show(&twitter.ListsShowParams{

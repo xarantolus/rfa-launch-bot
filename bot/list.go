@@ -34,6 +34,14 @@ func (l *UserList) TweetAssociatedWithAny(tweet twitter.Tweet) bool {
 		return true
 	}
 
+	if tweet.QuotedStatus != nil && l.TweetAssociatedWithAny(*tweet.QuotedStatus) {
+		return true
+	}
+
+	if tweet.RetweetedStatus != nil && l.TweetAssociatedWithAny(*tweet.RetweetedStatus) {
+		return true
+	}
+
 	if tweet.Entities != nil {
 		for _, m := range tweet.Entities.UserMentions {
 			if l.ContainsByID(m.ID) {
