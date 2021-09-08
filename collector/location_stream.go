@@ -20,6 +20,10 @@ func LocationStream(client *twitter.Client, tweetChan chan<- TweetWrapper) {
 				// Map: https://mapper.acme.com/?ll=48.34986,10.86273&z=10&t=M&marker0=48.12027%2C10.49881%2C12.3%20km%20WxNW%20of%20Turkheim%20DE&marker1=48.59659%2C11.37909%2C46.9%20km%20ExNE%20of%20Stadtbergen%20DE
 				"11.37909,48.59659,10.49881,48.12027",
 			},
+
+			// Also include search keywords, that way we get more news
+			Track: []string{"rocket factory augsburg"},
+
 			FilterLevel: "none",
 			Language:    []string{"de", "en"},
 		})
