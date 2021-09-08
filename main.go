@@ -71,7 +71,10 @@ func main() {
 			return
 		}
 		_, _, err := client.Statuses.Retweet(t.ID, &twitter.StatusRetweetParams{})
-		util.LogError(err, "retweet")
+		if util.LogError(err, "retweet") {
+			return
+		}
+		log.Println("[Twitter] Retweeted", t.URL())
 	}
 
 	for tweet := range tweetChan {
