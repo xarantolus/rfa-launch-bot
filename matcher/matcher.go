@@ -1,6 +1,7 @@
 package matcher
 
 import (
+	"strings"
 	"time"
 
 	"github.com/xarantolus/rfa-launch-bot/bot"
@@ -16,8 +17,9 @@ type Matcher struct {
 
 	importantUsers []string
 
-	positiveKeywords []string
-	negativeKeywords []string
+	positiveKeywords        []string
+	locationPositiveKeywors []string
+	negativeKeywords        []string
 }
 
 func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
@@ -33,6 +35,10 @@ func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
 
 		positiveKeywords: []string{
 			"rocket factory augsburg",
+		},
+
+		locationPositiveKeywors: []string{
+			"rocket factory",
 		},
 
 		negativeKeywords: []string{},
@@ -60,6 +66,24 @@ func (m *Matcher) Match(tweet collector.TweetWrapper) bool {
 	// Some accounts are ignored and should of course not be retweeted
 	if m.IgnoredUsers.TweetAssociatedWithAny(tweet.Tweet) {
 		return false
+	}
+
+	// Now look at the actual tweet text
+	text := strings.ToLower(tweet.Text())
+
+	// Some keywords should be ignored
+	if anyWordStartsWith(text, m.negativeKeywords...) {
+		return false
+	}
+
+	// If we have interesting keywords, it's a match
+	if anyWordStartsWith(text, m.positiveKeywords...) {
+		return true
+	}
+
+	// The location stream has additional keywords
+	if anyWordStartsWith(text, m.locationPositiveKeywors...) {
+		return true
 	}
 
 	return false
