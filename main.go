@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
+	"fmt"
 	"log"
 	"strconv"
 
@@ -34,9 +36,7 @@ func main() {
 	// Load all ignored users
 	var ignoredUsers = bot.ListMembers(client, cfg.Lists.NegativeIDs...)
 
-	var matcher = matcher.Matcher{
-		IgnoredUsers: ignoredUsers,
-	}
+	var matcher = matcher.NewMatcher(ignoredUsers)
 
 	// This channel receives all tweets that should be checked if they are on topic
 	var tweetChan = make(chan collector.TweetWrapper, 250)
@@ -72,6 +72,13 @@ func main() {
 	}
 
 	for tweet := range tweetChan {
+		bytes, err := json.Marshal(tweet)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(string(bytes))
+
+		log.Println(string(tweet.Source) + ": " + tweet.URL() + ": " + tweet.Text())
 		if matcher.Match(tweet) {
 			retweet(tweet)
 		}
