@@ -20,6 +20,7 @@ type TweetSource string
 
 const (
 	TweetSourceLocationStream = "location"
+	TweetSourceSearchStream   = "search"
 	TweetSourceTimeline       = "timeline"
 	TweetSourceUser           = "user"
 	TweetSourceList           = "list"

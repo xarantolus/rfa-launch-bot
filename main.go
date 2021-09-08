@@ -53,6 +53,9 @@ func main() {
 		// Get tweets from around the area
 		go collector.LocationStream(client, tweetChan)
 
+		// Get tweets mentioning rfa
+		go collector.SearchStream(client, tweetChan)
+
 		// All positive lists
 		for _, listID := range cfg.Lists.PositiveIDs {
 			list, _, err := client.Lists.Show(&twitter.ListsShowParams{
