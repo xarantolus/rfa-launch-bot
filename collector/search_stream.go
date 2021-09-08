@@ -20,7 +20,9 @@ func SearchStream(client *twitter.Client, tweetChan chan<- TweetWrapper) {
 				"rocketfactoryaugsburg",
 
 				"rfa one",
+				"rfa launcher",
 				"rocket factory one",
+				"rocket factory launcher",
 			},
 			FilterLevel: "none",
 		})

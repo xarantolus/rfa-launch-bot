@@ -38,7 +38,9 @@ func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
 			"rocketfactoryaugsburg",
 
 			"rfa one",
+			"rfa launcher",
 			"rocket factory one",
+			"rocket factory launcher",
 		},
 
 		locationPositiveKeywors: []string{
