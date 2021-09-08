@@ -3,7 +3,7 @@ package collector
 import "github.com/dghubble/go-twitter/twitter"
 
 type TweetWrapper struct {
-	Source TweetSource
+	Source TweetSource `json:"source"`
 
 	twitter.Tweet
 }

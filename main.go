@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"flag"
-	"fmt"
 	"log"
+	"os"
 	"strconv"
 
 	"github.com/dghubble/go-twitter/twitter"
@@ -94,14 +94,20 @@ func main() {
 		}
 	}
 
-	for tweet := range tweetChan {
-		bytes, err := json.Marshal(tweet)
-		if err != nil {
-			panic(err)
-		}
-		fmt.Println(string(bytes))
+	tweetFile, err := os.OpenFile("tweets.ndjson", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		panic(err)
+	}
+	defer tweetFile.Close()
 
-		log.Println(string(tweet.Source) + ": " + tweet.URL() + ": " + tweet.Text())
+	dec := json.NewEncoder(tweetFile)
+
+	for tweet := range tweetChan {
+		err = dec.Encode(tweet)
+		if err != nil {
+			log.Printf("encoding json to file: %s\n", err.Error())
+		}
+
 		if matcher.Match(tweet) {
 			retweet(tweet)
 		}
