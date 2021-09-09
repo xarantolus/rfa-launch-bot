@@ -23,6 +23,10 @@ func LocationStream(client *twitter.Client, tweetChan chan<- TweetWrapper) {
 				// Andøya Space Center, see https://twitter.com/rfa_space/status/1425335693484625923
 				// Map: http://bboxfinder.com/#68.856583,14.864502,69.377411,16.677246
 				"14.864502,68.856583,16.677246,69.377411",
+
+				// Estrange Space Center near Kiruna, see https://twitter.com/Swebotschaft/status/1436014429070667780
+				// Map: http://bboxfinder.com/#67.798869,20.041809,68.983031,21.676025
+				"20.041809,67.798869,21.676025,68.983031",
 			},
 			FilterLevel: "none",
 			Language:    []string{"de", "en"},
