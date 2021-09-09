@@ -35,6 +35,7 @@ func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
 
 		positiveKeywords: []string{
 			"rocket factory augsburg",
+			"rocketfactory augsburg",
 			"rocketfactoryaugsburg",
 
 			"rfa one",
@@ -44,7 +45,8 @@ func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
 		},
 
 		locationPositiveKeywors: []string{
-			"rocket factory",
+			"rocket factory", "rocketfactory",
+
 			"statisches feuer", "standfeuer", "dauerfeuer",
 			"static fire", "staticfire", "static test fire",
 		},

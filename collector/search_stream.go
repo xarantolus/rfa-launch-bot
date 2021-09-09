@@ -17,6 +17,7 @@ func SearchStream(client *twitter.Client, tweetChan chan<- TweetWrapper) {
 		s, err := client.Streams.Filter(&twitter.StreamFilterParams{
 			Track: []string{
 				"rocket factory augsburg",
+				"rocketfactory augsburg",
 				"rocketfactoryaugsburg",
 
 				"rfa one",
