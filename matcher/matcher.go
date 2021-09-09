@@ -52,7 +52,7 @@ func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
 		},
 
 		negativeKeywords: []string{
-			"spacex", "blue origin", "blueorigin", "aerojet", "mt aerospace",
+			"spacex", "blue origin", "blueorigin", "aerojet", 
 			"electron", "neutron", "rocket lab", "rocketlab", "rklb",
 			"falcon", "f9", "starlink", "tesla", "giga press",
 			"gigapress", "gigafactory", "openai", "boring", "hyperloop", "solarcity", "neuralink", "sls", "nasa_sls", "ula", "vulcan", "artemis", "rogozin", "virgingalactic", "virgin galactic", "virgin orbit", "virginorbit", "blueorigin", "boeing", "starliner", "soyuz", "orion",
