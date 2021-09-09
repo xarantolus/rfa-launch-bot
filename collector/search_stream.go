@@ -24,6 +24,8 @@ func SearchStream(client *twitter.Client, tweetChan chan<- TweetWrapper) {
 				"rfa launcher",
 				"rocket factory one",
 				"rocket factory launcher",
+
+				"esrange space center",
 			},
 			FilterLevel: "none",
 		})
