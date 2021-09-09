@@ -14,6 +14,10 @@ func LogError(err error, location string) bool {
 	return true
 }
 
-func HashTagText(words []string) string {
-	return "#" + strings.Join(words, " #")
+func HashTagText(words []string) (s string) {
+	var joined []string
+	for _, w := range words {
+		joined = append(joined, strings.Join(strings.Fields(w), ""))
+	}
+	return "#" + strings.Join(joined, " #")
 }

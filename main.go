@@ -11,6 +11,7 @@ import (
 	"github.com/xarantolus/rfa-launch-bot/bot"
 	"github.com/xarantolus/rfa-launch-bot/collector"
 	"github.com/xarantolus/rfa-launch-bot/config"
+	"github.com/xarantolus/rfa-launch-bot/generator"
 	"github.com/xarantolus/rfa-launch-bot/matcher"
 	"github.com/xarantolus/rfa-launch-bot/util"
 )
@@ -69,6 +70,9 @@ func main() {
 			}
 			go collector.List(*list, client, tweetChan)
 		}
+
+		// And now the jobs that generate tweets by themselves:
+		go generator.LiveStreamTweets(client)
 	}
 
 	var retweet = func(t collector.TweetWrapper) {

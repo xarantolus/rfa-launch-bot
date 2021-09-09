@@ -11,8 +11,11 @@ require (
 require (
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/dghubble/sling v1.3.0 // indirect
+	github.com/docker/go-units v0.4.0 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
+	github.com/tdewolff/parse/v2 v2.5.19 // indirect
+	github.com/xarantolus/jsonextract v1.5.3 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )
 
