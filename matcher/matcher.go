@@ -4,6 +4,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/dghubble/go-twitter/twitter"
 	"github.com/xarantolus/rfa-launch-bot/bot"
 	"github.com/xarantolus/rfa-launch-bot/collector"
 	"github.com/xarantolus/rfa-launch-bot/util"
@@ -17,6 +18,8 @@ type Matcher struct {
 
 	myUserID int64
 
+	client *twitter.Client
+
 	importantUsers []string
 
 	positiveKeywords        []string
@@ -24,10 +27,11 @@ type Matcher struct {
 	negativeKeywords        []string
 }
 
-func NewMatcher(ignoredUsers *bot.UserList, myUserID int64) (m *Matcher) {
+func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, myUserID int64) (m *Matcher) {
 	m = &Matcher{
 		IgnoredUsers: ignoredUsers,
 		myUserID:     myUserID,
+		client:       client,
 		seenTweets:   make(map[int64]bool),
 
 		maxTweetAge: 24 * time.Hour,
@@ -87,6 +91,12 @@ func (m *Matcher) Match(tweet collector.TweetWrapper) bool {
 
 	// Some accounts are ignored and should of course not be retweeted
 	if m.IgnoredUsers.TweetAssociatedWithAny(tweet.Tweet) {
+		return false
+	}
+
+	// We don't want to "interrupt" discussions/answers between users by retweeting them
+	// However, if someone tweets at themselves (e.g. a thread about space), then it's fine
+	if m.isReplyToOtherUser(&tweet.Tweet) {
 		return false
 	}
 

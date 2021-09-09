@@ -40,7 +40,7 @@ func main() {
 		ignoredUsers = bot.ListMembers(client, "ignored", cfg.Lists.NegativeIDs...)
 	)
 
-	var matcher = matcher.NewMatcher(ignoredUsers, user.ID)
+	var matcher = matcher.NewMatcher(client, ignoredUsers, user.ID)
 
 	// This channel receives all tweets that should be checked if they are on topic
 	var tweetChan = make(chan collector.TweetWrapper, 250)
