@@ -6,7 +6,7 @@ import (
 )
 
 func TestKeywordCase(t *testing.T) {
-	var m = NewMatcher(nil)
+	var m = NewMatcher(nil, 0)
 
 	for _, kw := range m.positiveKeywords {
 		if strings.ToLower(kw) != kw {

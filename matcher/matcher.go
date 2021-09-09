@@ -15,6 +15,8 @@ type Matcher struct {
 	seenTweets  map[int64]bool
 	maxTweetAge time.Duration
 
+	myUserID int64
+
 	importantUsers []string
 
 	positiveKeywords        []string
@@ -22,9 +24,10 @@ type Matcher struct {
 	negativeKeywords        []string
 }
 
-func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
+func NewMatcher(ignoredUsers *bot.UserList, myUserID int64) (m *Matcher) {
 	m = &Matcher{
 		IgnoredUsers: ignoredUsers,
+		myUserID:     myUserID,
 		seenTweets:   make(map[int64]bool),
 
 		maxTweetAge: 24 * time.Hour,
@@ -52,7 +55,7 @@ func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
 		},
 
 		negativeKeywords: []string{
-			"spacex", "blue origin", "blueorigin", "aerojet", 
+			"spacex", "blue origin", "blueorigin", "aerojet",
 			"electron", "neutron", "rocket lab", "rocketlab", "rklb",
 			"falcon", "f9", "starlink", "tesla", "giga press",
 			"gigapress", "gigafactory", "openai", "boring", "hyperloop", "solarcity", "neuralink", "sls", "nasa_sls", "ula", "vulcan", "artemis", "rogozin", "virgingalactic", "virgin galactic", "virgin orbit", "virginorbit", "blueorigin", "boeing", "starliner", "soyuz", "orion",
@@ -67,7 +70,7 @@ func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
 }
 
 func (m *Matcher) Match(tweet collector.TweetWrapper) bool {
-	if m.seenTweets[tweet.ID] {
+	if m.seenTweets[tweet.ID] || tweet.User != nil && tweet.User.ID == m.myUserID {
 		return false
 	}
 	m.seenTweets[tweet.ID] = true
