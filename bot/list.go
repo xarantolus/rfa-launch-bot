@@ -63,14 +63,12 @@ func (l *UserList) TweetAssociatedWithAny(tweet twitter.Tweet) bool {
 
 func (m *UserList) update() {
 	m.mlock.RLock()
-	shouldUpdate := time.Since(m.lastUpdate) > 30*time.Minute
+	shouldUpdate := time.Since(m.lastUpdate) > 90*time.Minute
 	m.mlock.RUnlock()
 
 	if !shouldUpdate {
 		return
 	}
-
-	log.Println("[List] Updating all lists...")
 
 	m.mlock.Lock()
 	defer m.mlock.Unlock()
@@ -91,7 +89,7 @@ func (m *UserList) update() {
 		}
 	}
 
-	log.Printf("[List] Loaded %d ignored users\n", len(m.members))
+	log.Printf("[List] Update list and loaded %d ignored users\n", len(m.members))
 
 	m.lastUpdate = time.Now()
 }
