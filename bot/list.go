@@ -14,6 +14,8 @@ type UserList struct {
 	listIDs []int64
 	c       *twitter.Client
 
+	purpose string
+
 	mlock      sync.RWMutex
 	members    map[int64]bool
 	lastUpdate time.Time
@@ -89,16 +91,17 @@ func (m *UserList) update() {
 		}
 	}
 
-	log.Printf("[List] Update list and loaded %d ignored users\n", len(m.members))
+	log.Printf("[List] Updated list and loaded %d %s users\n", len(m.members), m.purpose)
 
 	m.lastUpdate = time.Now()
 }
 
 // ListMembers loads a list of all users from the lists with the given ID
-func ListMembers(c *twitter.Client, listIDs ...int64) (membersMap *UserList) {
+func ListMembers(c *twitter.Client, purpose string, listIDs ...int64) (membersMap *UserList) {
 	membersMap = &UserList{
 		c:       c,
 		listIDs: listIDs,
+		purpose: purpose,
 	}
 
 	membersMap.update()

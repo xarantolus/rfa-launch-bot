@@ -36,8 +36,8 @@ func main() {
 
 	// Load all ignored & known users
 	var (
-		knownUsers   = bot.ListMembers(client, cfg.Lists.PositiveIDs...)
-		ignoredUsers = bot.ListMembers(client, cfg.Lists.NegativeIDs...)
+		knownUsers   = bot.ListMembers(client, "known", cfg.Lists.PositiveIDs...)
+		ignoredUsers = bot.ListMembers(client, "ignored", cfg.Lists.NegativeIDs...)
 	)
 
 	var matcher = matcher.NewMatcher(ignoredUsers)
