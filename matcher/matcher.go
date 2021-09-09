@@ -45,6 +45,8 @@ func NewMatcher(ignoredUsers *bot.UserList) (m *Matcher) {
 
 		locationPositiveKeywors: []string{
 			"rocket factory",
+			"statisches feuer", "standfeuer", "dauerfeuer",
+			"static fire", "staticfire", "static test fire",
 		},
 
 		negativeKeywords: []string{
