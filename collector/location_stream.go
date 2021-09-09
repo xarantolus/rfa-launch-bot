@@ -29,7 +29,7 @@ func LocationStream(client *twitter.Client, tweetChan chan<- TweetWrapper) {
 				"20.041809,67.798869,21.676025,68.983031",
 			},
 			FilterLevel: "none",
-			Language:    []string{"de", "en"},
+			Language:    []string{"de", "en", "se"},
 		})
 		if util.LogError(err, "location stream") {
 			goto sleep
