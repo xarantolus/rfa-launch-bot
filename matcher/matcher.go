@@ -84,19 +84,19 @@ func (m *Matcher) Match(tweet collector.TweetWrapper) bool {
 		return false
 	}
 
-	// Anything from important accounts should be retweeted
+	// We don't want to "interrupt" discussions/answers between users by retweeting them
+	// However, if someone tweets at themselves (e.g. a thread about space), then it's fine
+	if m.isReplyToOtherUser(&tweet.Tweet) {
+		return false
+	}
+
+	// Anything from important accounts should be retweeted, except for replies to other users
 	if tweet.User != nil && containsStringCaseInsensitive(m.importantUsers, tweet.User.ScreenName) {
 		return true
 	}
 
 	// Some accounts are ignored and should of course not be retweeted
 	if m.IgnoredUsers.TweetAssociatedWithAny(tweet.Tweet) {
-		return false
-	}
-
-	// We don't want to "interrupt" discussions/answers between users by retweeting them
-	// However, if someone tweets at themselves (e.g. a thread about space), then it's fine
-	if m.isReplyToOtherUser(&tweet.Tweet) {
 		return false
 	}
 
