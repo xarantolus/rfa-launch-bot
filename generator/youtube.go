@@ -37,8 +37,10 @@ func LiveStreamTweets(client *twitter.Client) {
 
 		var tweetText = describeLiveStream(&liveStream)
 
-		// Check if we already tweeted about this live stream
-		if lastTweetedURL == currentURL && lastTweetedUpcoming == liveStream.IsUpcoming {
+		_, du, ok := liveStream.TimeUntil()
+
+		// Check if we already tweeted about this live stream within the last few minutes
+		if lastTweetedURL == currentURL && lastTweetedUpcoming == liveStream.IsUpcoming && (!ok || du < waitTime(du)) {
 			goto sleep
 		}
 
@@ -54,6 +56,20 @@ func LiveStreamTweets(client *twitter.Client) {
 
 	sleep:
 		time.Sleep(time.Minute + time.Duration(rand.Intn(60))*time.Second)
+	}
+}
+
+// waitTime defines how long we need to wait before sending another (same) live stream announcement
+func waitTime(durationUntil time.Duration) time.Duration {
+	switch {
+	case durationUntil < 30*time.Minute:
+		return 15 * time.Minute
+
+	case durationUntil < 4*time.Hour:
+		return time.Hour
+
+	default:
+		return 4 * time.Hour
 	}
 }
 
