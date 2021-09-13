@@ -26,6 +26,7 @@ func LiveStreamTweets(client *twitter.Client) {
 	var (
 		lastTweetedURL      string
 		lastTweetedUpcoming bool
+		lastTweetedStart    time.Time
 	)
 
 	log.Println("[YouTube] Scraping RFA channel for live streams")
@@ -37,10 +38,10 @@ func LiveStreamTweets(client *twitter.Client) {
 
 		var tweetText = describeLiveStream(&liveStream)
 
-		_, du, ok := liveStream.TimeUntil()
+		t, du, ok := liveStream.TimeUntil()
 
 		// Check if we already tweeted about this live stream within the last few minutes
-		if lastTweetedURL == currentURL && lastTweetedUpcoming == liveStream.IsUpcoming && (!ok || du < waitTime(du)) {
+		if lastTweetedURL == currentURL && lastTweetedUpcoming == liveStream.IsUpcoming && lastTweetedStart.Equal(t) && (!ok || du < waitTime(du)) {
 			goto sleep
 		}
 
@@ -50,6 +51,10 @@ func LiveStreamTweets(client *twitter.Client) {
 			if util.LogError(err, "tweeting live stream update") {
 				goto sleep
 			}
+
+			lastTweetedURL = currentURL
+			lastTweetedUpcoming = liveStream.IsUpcoming
+			lastTweetedStart = t
 
 			log.Println("[YouTube] Tweeted live stream announcement:", collector.TweetWrapper{Tweet: *tweet}.URL())
 		}
