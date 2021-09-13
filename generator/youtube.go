@@ -44,6 +44,7 @@ func LiveStreamTweets(client *twitter.Client) {
 		// Check if we already tweeted about this live stream within the last few minutes
 		if lastTweetedURL == currentURL && lastTweetedUpcoming == liveStream.IsUpcoming &&
 			lastTweetedStart.Equal(t) && (!ok || time.Since(lastTweetTime) < waitTime(du)) {
+			log.Println("[YouTube] Skipping live stream announcement since we tweeted about it recently.")
 			goto sleep
 		}
 
@@ -57,6 +58,7 @@ func LiveStreamTweets(client *twitter.Client) {
 			lastTweetedURL = currentURL
 			lastTweetedUpcoming = liveStream.IsUpcoming
 			lastTweetedStart = t
+			lastTweetTime = time.Now()
 
 			log.Println("[YouTube] Tweeted live stream announcement:", collector.TweetWrapper{Tweet: *tweet}.URL())
 		}
