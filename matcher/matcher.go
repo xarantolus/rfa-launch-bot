@@ -46,6 +46,8 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, myUserID int
 			"rocketfactoryaugsburg",
 
 			"rfa one",
+			"rfa1",
+			"rfa 1",
 			"rfa launcher",
 			"rocket factory one",
 			"rocket factory launcher",
@@ -66,7 +68,7 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, myUserID int
 
 			"covid", "corona", "pandemie", "pandemic", "impfung", "vaccine", "vax",
 
-			"jesus", "god", "gott", "der herr",
+			"jesus", "god", "gott", "der herr", "crypto", "eth", "bitcoin", "doge", "coin", "token", "blockchain",
 		},
 	}
 
