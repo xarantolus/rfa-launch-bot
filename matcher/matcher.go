@@ -86,6 +86,10 @@ func (m *Matcher) Match(tweet collector.TweetWrapper) bool {
 		return false
 	}
 
+	if tweet.Lang != "" && tweet.Lang != "en" && tweet.Lang != "de" && tweet.Lang != "und" {
+		return false
+	}
+
 	// We don't want to "interrupt" discussions/answers between users by retweeting them
 	// However, if someone tweets at themselves (e.g. a thread about space), then it's fine
 	if m.isReplyToOtherUser(&tweet.Tweet) {
