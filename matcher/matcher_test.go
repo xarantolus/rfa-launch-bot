@@ -13,9 +13,9 @@ func TestKeywordCase(t *testing.T) {
 			t.Errorf("Keyword %q is not lowercase in positiveKeywords, but should be", kw)
 		}
 	}
-	for _, kw := range m.locationPositiveKeywors {
+	for _, kw := range m.locationPositiveKeywords {
 		if strings.ToLower(kw) != kw {
-			t.Errorf("Keyword %q is not lowercase in locationPositiveKeywors, but should be", kw)
+			t.Errorf("Keyword %q is not lowercase in locationPositiveKeywords, but should be", kw)
 		}
 	}
 	for _, kw := range m.negativeKeywords {

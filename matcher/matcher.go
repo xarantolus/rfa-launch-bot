@@ -7,7 +7,6 @@ import (
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/xarantolus/rfa-launch-bot/bot"
 	"github.com/xarantolus/rfa-launch-bot/collector"
-	"github.com/xarantolus/rfa-launch-bot/util"
 )
 
 type Matcher struct {
@@ -22,9 +21,9 @@ type Matcher struct {
 
 	importantUsers []string
 
-	positiveKeywords        []string
-	locationPositiveKeywors []string
-	negativeKeywords        []string
+	positiveKeywords         []string
+	locationPositiveKeywords []string
+	negativeKeywords         []string
 }
 
 func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, myUserID int64) (m *Matcher) {
@@ -53,7 +52,7 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, myUserID int
 			"rocket factory launcher",
 		},
 
-		locationPositiveKeywors: []string{
+		locationPositiveKeywords: []string{
 			"rocket factory", "rocketfactory",
 
 			"statisches feuer", "standfeuer", "dauerfeuer",
@@ -81,10 +80,10 @@ func (m *Matcher) Match(tweet collector.TweetWrapper) bool {
 	}
 	m.seenTweets[tweet.ID] = true
 
-	t, terr := tweet.CreatedAtTime()
-	if util.LogError(terr, "parsing tweet date") || time.Since(t) > m.maxTweetAge {
-		return false
-	}
+	// t, terr := tweet.CreatedAtTime()
+	// if util.LogError(terr, "parsing tweet date") || time.Since(t) > m.maxTweetAge  {
+	// 	return false
+	// }
 
 	if tweet.Lang != "" && tweet.Lang != "en" && tweet.Lang != "de" && tweet.Lang != "und" {
 		return false
@@ -120,7 +119,7 @@ func (m *Matcher) Match(tweet collector.TweetWrapper) bool {
 	}
 
 	// The location stream has additional keywords
-	if anyWordStartsWith(text, m.locationPositiveKeywors...) {
+	if anyWordStartsWith(text, m.locationPositiveKeywords...) {
 		return true
 	}
 
