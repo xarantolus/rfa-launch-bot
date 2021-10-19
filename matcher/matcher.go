@@ -67,7 +67,7 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, myUserID int
 
 			"covid", "corona", "pandemie", "pandemic", "impfung", "vaccine", "vax",
 
-			"jesus", "god", "gott", "der herr", "crypto", "eth", "bitcoin", "doge", "coin", "token", "blockchain", "defi",
+			"jesus", "god", "gott", "der herr", "crypto", "eth", "bitcoin", "doge", "coin", "token", "blockchain", "defi", "nft", "giveaway",
 
 			"tom sachs", "sachs rocket", "tomsachs",
 		},
