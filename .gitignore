@@ -3,3 +3,4 @@ deploy
 *.yaml
 *.ndjson
 *.json
+*.gz

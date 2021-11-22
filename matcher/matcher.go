@@ -1,12 +1,14 @@
 package matcher
 
 import (
+	"log"
 	"strings"
 	"time"
 
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/xarantolus/rfa-launch-bot/bot"
 	"github.com/xarantolus/rfa-launch-bot/collector"
+	"github.com/xarantolus/rfa-launch-bot/util"
 )
 
 type Matcher struct {
@@ -17,7 +19,8 @@ type Matcher struct {
 
 	myUserID int64
 
-	client *twitter.Client
+	client       *twitter.Client
+	articleStore *util.ArticleStore
 
 	importantUsers []string
 
@@ -26,12 +29,13 @@ type Matcher struct {
 	negativeKeywords         []string
 }
 
-func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, myUserID int64) (m *Matcher) {
+func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, articleStore *util.ArticleStore, myUserID int64) (m *Matcher) {
 	m = &Matcher{
 		IgnoredUsers: ignoredUsers,
 		myUserID:     myUserID,
 		client:       client,
 		seenTweets:   make(map[int64]bool),
+		articleStore: articleStore,
 
 		maxTweetAge: 24 * time.Hour,
 
@@ -77,6 +81,17 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, myUserID int
 }
 
 func (m *Matcher) Match(tweet collector.TweetWrapper) bool {
+	if m.tweetMatches(tweet) {
+		ignored := m.articleStore.ShouldIgnoreTweet(&tweet.Tweet)
+		if ignored {
+			log.Printf("Ignoring tweet %s because we've seen an article like this before\n", tweet.URL())
+		}
+		return !ignored
+	}
+	return false
+}
+
+func (m *Matcher) tweetMatches(tweet collector.TweetWrapper) bool {
 	if m.seenTweets[tweet.ID] || tweet.User != nil && tweet.User.ID == m.myUserID {
 		return false
 	}

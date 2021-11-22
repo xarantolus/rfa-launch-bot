@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"strconv"
+	"time"
 
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/xarantolus/rfa-launch-bot/bot"
@@ -32,13 +33,18 @@ func main() {
 	}
 	log.Printf("[Twitter] Logged in @%s\n", user.ScreenName)
 
+	articleStore, err := util.NewArticleStore("articles.json", 12*time.Hour)
+	if err != nil {
+		log.Printf("[ArticleStore] Failed loading store, but still starting: %s\n", err.Error())
+	}
+
 	// Load all ignored & known users
 	var (
 		knownUsers   = bot.ListMembers(client, "known", cfg.Lists.PositiveIDs...)
 		ignoredUsers = bot.ListMembers(client, "ignored", cfg.Lists.NegativeIDs...)
 	)
 
-	var matcher = matcher.NewMatcher(client, ignoredUsers, user.ID)
+	var matcher = matcher.NewMatcher(client, ignoredUsers, articleStore, user.ID)
 
 	// This channel receives all tweets that should be checked if they are on topic
 	var tweetChan = make(chan collector.TweetWrapper, 250)

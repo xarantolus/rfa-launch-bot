@@ -9,7 +9,7 @@ import (
 )
 
 func TestKeywordCase(t *testing.T) {
-	var m = NewMatcher(nil, nil, 0)
+	var m = NewMatcher(nil, nil, nil, 0)
 
 	for _, kw := range m.positiveKeywords {
 		if strings.ToLower(kw) != kw {
@@ -39,7 +39,7 @@ func TestMatchingTweetPositive(t *testing.T) {
 		Text     string
 	}
 
-	var m = NewMatcher(nil, nil, 0)
+	var m = NewMatcher(nil, nil, nil, 0)
 
 	var shouldMatch = []tweet{
 		{
@@ -73,7 +73,7 @@ func TestMatchingTweetNegative(t *testing.T) {
 		Text     string
 	}
 
-	var m = NewMatcher(nil, nil, 0)
+	var m = NewMatcher(nil, nil, nil, 0)
 
 	var shouldNotMatch = []tweet{
 		{
