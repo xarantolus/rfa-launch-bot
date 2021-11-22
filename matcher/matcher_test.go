@@ -82,6 +82,9 @@ func TestMatchingTweetNegative(t *testing.T) {
 		{
 			Text: "One project I’ve been exploring is @Irrelevants_NFT.\nUnique art.\nWonderful team.\nFun arcade roadmap with collabs and utility\n“Build-a-bot” functionality similar to Tom Sachs Rocket Factory\n\nUniqueness and simplicity to users. These will be winning projects.",
 		},
+		{
+			Text: `Rocket Factory IRL Scavenger Hunt-Official Rules: 18 numbered clue/update threads will be added to the TSRF Twitter one at a time. Each clue = 1 Location, 1 Component. When found: post + tag a photo & DM @tsrocketfactory to exchange the Physical Component for its matching NFT Rocket`,
+		},
 	}
 
 	for _, tw := range shouldNotMatch {
