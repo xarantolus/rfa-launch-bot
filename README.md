@@ -10,7 +10,7 @@ It searches tweets from the following sources:
   * [Estrange Space Center](http://bboxfinder.com/#67.798869,20.041809,68.983031,21.676025)
 * Accounts and lists the bot follows
 
-It then checks for a bunch of keywords and retweets matching tweets.
+It then checks for a bunch of keywords and retweets matching tweets. If it finds links that is has retweeted within the last 12 hours, it will not retweet them again.
 
 #### Tweets
 The bot can also send tweets on its own under certain conditions:
