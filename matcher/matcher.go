@@ -74,6 +74,8 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, articleStore
 			"jesus", "god", "gott", "der herr", "crypto", "eth", "bitcoin", "doge", "coin", "token", "blockchain", "defi", "nft", "giveaway",
 
 			"tom sachs", "sachs rocket", "tomsachs",
+
+			"draft register",
 		},
 	}
 
