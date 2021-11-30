@@ -76,6 +76,8 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, articleStore
 			"tom sachs", "sachs rocket", "tomsachs",
 
 			"draft register",
+
+			"shit", "piss", "anime", "manga", "bronco", "bae",
 		},
 	}
 
@@ -138,7 +140,7 @@ func (m *Matcher) tweetMatches(tweet collector.TweetWrapper) bool {
 	}
 
 	// The location stream has additional keywords
-	if anyWordStartsWith(text, m.locationPositiveKeywords...) {
+	if tweet.Source == collector.TweetSourceLocationStream && anyWordStartsWith(text, m.locationPositiveKeywords...) {
 		return true
 	}
 
