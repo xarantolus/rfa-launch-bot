@@ -77,6 +77,8 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, articleStore
 
 			"draft register",
 
+			"nintendo", "ring fit adventure", "ringfitadventure",
+
 			"shit", "piss", "anime", "manga", "bronco", "bae",
 		},
 	}
