@@ -49,8 +49,8 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, articleStore
 			"rocketfactoryaugsburg",
 
 			"rfa one",
-			"rfa1",
-			"rfa 1",
+			"rfa1 ",
+			"rfa 1 ",
 			"rfa launcher",
 			"rocket factory one",
 			"rocket factory launcher",
