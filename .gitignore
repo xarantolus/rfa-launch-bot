@@ -1,6 +1,10 @@
 .vscode
 deploy
 *.yaml
+*.yaml.temp
+*.yaml.tmp
 *.ndjson
 *.json
 *.gz
+*.zip
+wenlauncher
