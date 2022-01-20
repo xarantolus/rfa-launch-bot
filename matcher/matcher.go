@@ -48,6 +48,8 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, articleStore
 			"rocketfactory augsburg",
 			"rocketfactoryaugsburg",
 
+			"rfa_space",
+
 			"rfa one",
 			"rfa1 ",
 			"rfa 1 ",
@@ -67,11 +69,15 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, articleStore
 			"spacex", "blue origin", "blueorigin", "aerojet",
 			"electron", "neutron", "rocket lab", "rocketlab", "rklb",
 			"falcon", "f9", "starlink", "tesla", "giga press",
-			"gigapress", "gigafactory", "openai", "boring", "hyperloop", "solarcity", "neuralink", "sls", "nasa_sls", "ula", "vulcan", "artemis", "rogozin", "virgingalactic", "virgin galactic", "virgin orbit", "virginorbit", "blueorigin", "boeing", "starliner", "soyuz", "orion",
+
+			"gigapress", "gigafactory", "openai", "boring", "hyperloop",
+			"solarcity", "neuralink", "sls", "nasa_sls", "ula", "vulcan",
+			"rogozin", "virgingalactic", "virgin galactic", "virgin orbit",
+			"virginorbit", "blueorigin", "boeing", "starliner", "soyuz", "orion",
 
 			"covid", "corona", "pandemie", "pandemic", "impfung", "vaccine", "vax",
 
-			"jesus", "god", "gott", "der herr", "crypto", "eth", "bitcoin", "doge", "coin", "token", "blockchain", "defi", "nft", "giveaway",
+			"jesus", "god", "gott", "der herr", "crypto", "eth", "bitcoin", "doge", "coin", "token", "blockchain", "nft", "giveaway",
 
 			"tom sachs", "sachs rocket", "tomsachs",
 

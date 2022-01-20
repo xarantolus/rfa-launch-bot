@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/dghubble/go-twitter/twitter"
+	"github.com/xarantolus/rfa-launch-bot/bot"
 	"github.com/xarantolus/rfa-launch-bot/collector"
 )
 
@@ -39,20 +40,31 @@ func TestMatchingTweetPositive(t *testing.T) {
 		Text     string
 	}
 
-	var m = NewMatcher(nil, nil, nil, 0)
+	var m = NewMatcher(nil, &bot.UserList{}, nil, 0)
 
 	var shouldMatch = []tweet{
+		{
+			Text: "Congratulations to @rfa_space, @isaraerospace and @PLD_Space, the Keycap digit three finalists of the EIC Space Launch Prize! The winner of this € 10 million prize will be announced on the 25th of January 2022 @BBE_Europe European Space Conference. Livestream via @defis_eu at 10:30.",
+		},
 		{
 			Text: "The rocket factory augsburg is rapidly advancing germanys space access",
 		},
 	}
 
+	var tweetId int64
+
 	for _, tw := range shouldMatch {
+		tweetId++
 		t.Run(t.Name(), func(t *testing.T) {
 			matched := m.Match(collector.TweetWrapper{
 				Source: collector.TweetSourceTimeline,
 				Tweet: twitter.Tweet{
+					ID:       tweetId,
 					FullText: tw.Text,
+					User: &twitter.User{
+						ID:         191358139,
+						ScreenName: tw.Username,
+					},
 				},
 			})
 

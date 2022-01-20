@@ -3,12 +3,14 @@ package matcher
 import (
 	"log"
 	"strings"
-	"unicode"
 )
 
-// anyWordStartsWith returns whether any word in text starts with any word in words.
-// It skips hashtags and a bunch of other stuff to make it useful for text on twitter
+// startsWithAny checks whether any of words is the start of a sequence of words in the text
 func anyWordStartsWith(text string, words ...string) bool {
+	if len(words) == 0 {
+		return false
+	}
+
 	var iterations = 0
 
 	var currentIndex = 0
@@ -16,9 +18,11 @@ func anyWordStartsWith(text string, words ...string) bool {
 	for {
 		iterations++
 
-		for currentIndex < len(text) && (unicode.IsSpace(rune(text[currentIndex])) || strings.ContainsAny(string(rune(text[currentIndex])), "#@$")) {
-			currentIndex++
+		var nextIndexOffset = strings.IndexFunc(text[currentIndex:], isAlphanumerical)
+		if nextIndexOffset < 0 {
+			break
 		}
+		currentIndex += nextIndexOffset
 
 		for _, w := range words {
 			if strings.HasPrefix(text[currentIndex:], w) {
@@ -26,14 +30,14 @@ func anyWordStartsWith(text string, words ...string) bool {
 			}
 		}
 
-		// Now skip to the next space character
-		for currentIndex < len(text) && !unicode.IsSpace(rune(text[currentIndex])) {
-			currentIndex++
-		}
-
-		if currentIndex == len(text) {
+		// Now skip to the next non-alphanumerical character
+		nextIndexOffset = strings.IndexFunc(text[currentIndex:], func(r rune) bool {
+			return !isAlphanumerical(r)
+		})
+		if nextIndexOffset < 0 {
 			break
 		}
+		currentIndex += nextIndexOffset
 
 		if iterations > 1000 {
 			log.Printf("Input text %q causes containsAny to loop longer than expected", text)
@@ -42,6 +46,12 @@ func anyWordStartsWith(text string, words ...string) bool {
 	}
 
 	return false
+}
+
+func isAlphanumerical(r rune) bool {
+	return (r >= 'a' && r <= 'z') ||
+		(r >= 'A' && r <= 'Z') ||
+		(r >= '0' && r <= '9')
 }
 
 // textContainsAny checks whether any of words is *anywhere* in the text
