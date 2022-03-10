@@ -56,6 +56,8 @@ func NewMatcher(client *twitter.Client, ignoredUsers *bot.UserList, articleStore
 			"rfa launcher",
 			"rocket factory one",
 			"rocket factory launcher",
+
+			"helix engine",
 		},
 
 		locationPositiveKeywords: []string{

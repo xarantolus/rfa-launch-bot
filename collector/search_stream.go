@@ -30,6 +30,7 @@ func SearchStream(client *twitter.Client, tweetChan chan<- TweetWrapper) {
 				"rocket factory launcher",
 
 				"esrange space center",
+				"helix engine",
 			},
 			FilterLevel: "none",
 		})
